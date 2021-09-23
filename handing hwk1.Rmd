@@ -3,9 +3,9 @@ title: "hwk1 615"
 author: "Handing Zhang"
 date: "9/22/2021"
 output:
-  pdf_document: default
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,6 +16,8 @@ setwd("~/Desktop/mssp/MA 615/week4/615-homework1")
 
 
 hand_functions.R
+
+We created a sum_special function in which we return the basic statistics of each column in a data frame, including their means, variances, covariances and correlations.
 ```{r}
 
 
@@ -48,13 +50,12 @@ sum_special <- function(df_x){
   return(sp_outputs)
 }
 
-
-
 ```
 
 
 
 car_viz.R
+In this exploration of mtcars, we did some data wrangling, in which we created a subset of rows of  mtcars with only cars whose mpg is less than 20, as well as indexing certain columns. We then utilized the sum_special function we just definedt to extract some basic statistics from the data frame. We could also do some data visualizations such as scatter plot and boxplot to get a more intuitive and clear view of the trend and distribution of the data.
 ```{r}
 
 library(tidyverse)

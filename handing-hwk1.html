@@ -1689,6 +1689,7 @@ summary {
 
 
 <p>hand_functions.R</p>
+<p>We created a sum_special function in which we return the basic statistics of each column in a data frame, including their means, variances, covariances and correlations.</p>
 <pre class="r"><code>sum_special &lt;- function(df_x){
   
   ## sum_special calculates data summary statistics
@@ -1717,7 +1718,7 @@ summary {
   
   return(sp_outputs)
 }</code></pre>
-<p>car_viz.R</p>
+<p>car_viz.R In this exploration of mtcars, we did some data wrangling, in which we created a subset of rows of mtcars with only cars whose mpg is less than 20, as well as indexing certain columns. We then utilized the sum_special function we just definedt to extract some basic statistics from the data frame. We could also do some data visualizations such as scatter plot and boxplot to get a more intuitive and clear view of the trend and distribution of the data.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
 <pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
