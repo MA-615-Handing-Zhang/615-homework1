@@ -2,7 +2,9 @@
 title: "hwk1 615"
 author: "Handing Zhang"
 date: "9/22/2021"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -10,29 +12,94 @@ knitr::opts_chunk$set(echo = TRUE)
 setwd("~/Desktop/mssp/MA 615/week4/615-homework1")
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+hand_functions.R
+```{r}
 
-```{r cars}
-summary(cars)
+
+sum_special <- function(df_x){
+  
+  ## sum_special calculates data summary statistics
+  ## the input param df_x is the data frame of input values
+  
+  #  browser()  # browser() will start the debugger
+               # if the line is uncommented
+  
+  
+  ## test the input data to assure that it is a data frame.
+  try(if(!is.data.frame(df_x)) stop("Input data must be a data frame."))
+  
+  
+  sp_means <- apply(df_x, MARGIN = 2, FUN = mean)
+  sp_var <- apply(df_x, MARGIN = 2, FUN = var)
+  sp_cov <- cov(df_x)
+  sp_cor <- cor(df_x)
+  
+  ## Note that defining a list with the 
+  ## syntax list(list_name = list_content) produces
+  ## named list items
+  sp_outputs <- list(sp_means=sp_means, 
+                     sp_var = sp_var, 
+                     sp_cov = sp_cov, 
+                     sp_cor = sp_cor)
+  
+  return(sp_outputs)
+}
+
+
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+car_viz.R
+```{r}
+
+library(tidyverse)
+
+# call built-in data mtcars.
+data(mtcars)
+
+# Select only car models where mpg<20
+mtcars_mpg2 <- mtcars[mtcars$mpg < 20,]
+
+
+# Reduce the variables to mpg, cyl, disp, hp, gears
+mtcars_mpg2 <- mtcars_mpg2[, c(1,2,3,4,10)]
+
+# read the R file hand_functions.R so that it can be used
+# notice that with echo = TRUE 
+source(file = "hand_functions.R", echo = TRUE)
+?source
+# Now use the function from hand_functions.R
+
+sp_out <- sum_special(mtcars_mpg2)
+
+
+# library(esquisse)
+# 
+# esquisser(data = mtcars_mpg2, viewer = "browser")
+
+
+
+ggplot(mtcars_mpg2) +
+  aes(x = disp, y = mpg) +
+  geom_point(shape = "bullet", size = 4L, colour = "#B22222") +
+  geom_smooth(span = 0.5) +
+  theme_minimal()
+
+
+# note that this boxplot cannot be made with esquisse() unless
+# the data is adjusted.  What adjustment is needed?
+
+
+ggplot(mtcars_mpg2, aes(x=as.factor(cyl), y=mpg)) + 
+  geom_boxplot(fill="slateblue", alpha=0.2) + 
+  xlab("cyl")
+
+
+
+
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-
-
-
-Hellooooooooooooooo
-
 
