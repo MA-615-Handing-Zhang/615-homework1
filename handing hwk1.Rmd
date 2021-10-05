@@ -101,7 +101,21 @@ ggplot(mtcars_mpg2, aes(x=as.factor(cyl), y=mpg)) +
   xlab("cyl")
 
 
+```
+
+```{r}
+
+install.packages("usethis")
 
 
 ```
+
+
+
+```{r}
+
+
+```
+
+
 
